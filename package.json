@@ -5,6 +5,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "nassti": "./bin/nassti.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/avidal/nassti.git"
@@ -14,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/avidal/nassti/issues"
   },
-  "homepage": "https://github.com/avidal/nassti"
+  "homepage": "https://github.com/avidal/nassti",
+  "dependencies": {
+    "colors": "^1.0.3",
+    "commander": "^2.6.0",
+    "resolve": "^1.1.0"
+  }
 }
