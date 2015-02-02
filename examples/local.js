@@ -8,4 +8,8 @@ session.configure({
   port: 4000
 });
 
+session.trigger(`^By what name`, function(line, done) {
+  console.log("Matched on", line);
+});
+
 module.exports = session;
