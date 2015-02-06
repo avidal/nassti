@@ -13,12 +13,15 @@ session.trigger(/^By what name do you wish to be known?/, function() {
   // an event
   session.read(function(input) {
     session.emit('username', input);
+    if(input.toLowerCase().trim() === "alex") {
+      session.send("test\r\n");
+    }
   });
 
   return "WHAT'S NAME PRECIOUS?? ";
 });
 
-session.trigger(/^(\d+)H (\d+)M (\d+)V > $/, function(line, rx, match) {
+session.trigger(/^(\d+)H (\d+)M (\d+)V > $/, function(line, match) {
   session.emit('prompt', { hp: match[1], mp: match[2], mv: match[3] });
 });
 
