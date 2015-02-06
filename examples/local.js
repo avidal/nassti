@@ -19,4 +19,10 @@ session.trigger(`^By what name do you wish to be known?`, function() {
   return "WHAT'S NAME PRECIOUS?? ";
 });
 
+session.trigger(`^(\\d+)H (\\d+)M (\\d+)V > $`, function(line, rx, match) {
+  console.log("HP", match[1], "MP", match[2], "MV", match[3]);
+  session.emit('prompt', { hp: match[1], mp: match[2], mv: match[3] });
+});
+
+
 module.exports = session;
