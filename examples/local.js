@@ -41,5 +41,11 @@ session.trigger(/^\x1B\[0;36m([^\[][^\r]+)\x1B\[0m$/m, function(line, match) {
   }, { once: true });
 });
 
+let path = session.path("n s e w");
+
+session.on('room', function() {
+  path.step();
+});
+
 
 module.exports = session;
