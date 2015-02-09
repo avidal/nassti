@@ -35,7 +35,7 @@ session.trigger(/^\x1B\[0;36m([^\[][^\r]+)\x1B\[0m$/m, function(line, match) {
 
   // Now setup a one-time trigger to look for the exit line
   session.trigger(/^\x1B\[0;36m\[ (?:obvious exits|Exits): ([^\]]*)\]\x1B\[0m$/m, function(line, match) {
-    let exits = match[1].split(' ');
+    let exits = match[1].trim().split(' ');
     console.log("Found room:", room, "with exits:", exits);
     session.emit('room', { name: room, exits: exits });
   }, { once: true });
@@ -47,5 +47,21 @@ session.on('room', function() {
   path.step();
 });
 
+let nodir = [
+  /Alas, you cannot go that way...$/m,
+  /You can't ride in there.$/m,
+  /Your mount is too exhausted.$/m,
+  /In your dreams, or what?/m,
+  /Maybe you should get on your feet first?/m,
+  /No way!  You're fighting for your life!/m,
+  /You would need to swim there, you can't just walk it.$/m,
+  /You are too exhausted.$/m,
+  /You would need a boat to go there.$/m,
+  /The (\w+) seems to be closed.$/m,
+];
+
+for(let i = 0; i < nodir.length; i++) {
+  session.trigger(nodir[i], path.unstep.bind(path));
+}
 
 module.exports = session;
