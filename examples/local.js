@@ -25,5 +25,21 @@ session.trigger(/^(\d+)H (\d+)M (\d+)V > $/, function(line, match) {
   session.emit('prompt', { hp: match[1], mp: match[2], mv: match[3] });
 });
 
+session.trigger(/^\x1B\[0;36m([^\[][^\r]+)\x1B\[0m$/m, function(line, match) {
+  let room = match[1];
+  // This is an overly greedy regex and can match things that aren't room
+  // names, so do a quick sanity check
+  if(room.indexOf('speaks from the') !== -1) {
+    return;
+  }
+
+  // Now setup a one-time trigger to look for the exit line
+  session.trigger(/^\x1B\[0;36m\[ (?:obvious exits|Exits): ([^\]]*)\]\x1B\[0m$/m, function(line, match) {
+    let exits = match[1].split(' ');
+    console.log("Found room:", room, "with exits:", exits);
+    session.emit('room', { name: room, exits: exits });
+  }, { once: true });
+});
+
 
 module.exports = session;
