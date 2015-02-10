@@ -1,0 +1,16 @@
+{
+    "env": {
+        "node": true
+    },
+    "ecmaFeatures": {
+        "binaryLiterals": true,
+        "octalLiterals": true,
+        "blockBindings": true,
+        "generators": true,
+        "templateStrings": true
+    },
+    "rules": {
+        "strict": [2, "global"],
+        "no-underscore-dangle": 0
+    }
+}
