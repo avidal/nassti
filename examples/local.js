@@ -1,4 +1,3 @@
-/* jshint node:true, esnext:true */
 'use strict';
 
 let session = require('..').session();

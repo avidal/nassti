@@ -1,7 +1,6 @@
 #!/usr/bin/env node
-
-/* jshint node:true, esnext:true */
 'use strict';
+
 const VERSION = require('../package.json').version;
 let program = require('commander');
 let resolve = require('resolve');
