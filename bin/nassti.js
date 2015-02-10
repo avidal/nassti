@@ -23,10 +23,10 @@ program
       process.exit();
     }
 
-    let session = require(sessfile);
-
+    // Once we have a known good session file, pass it into nassti who will
+    // deal with it from now on.
     console.log("Running with session", sessfile);
-    nassti.run(session, options.port);
+    nassti.run(sessfile, options.port);
 
   });
 
