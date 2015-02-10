@@ -7,7 +7,8 @@
         "octalLiterals": true,
         "blockBindings": true,
         "generators": true,
-        "templateStrings": true
+        "templateStrings": true,
+        "forOf": true
     },
     "rules": {
         "strict": [2, "global"],

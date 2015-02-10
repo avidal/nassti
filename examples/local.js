@@ -20,6 +20,10 @@ session.trigger(/^By what name do you wish to be known?/, function() {
   return "WHAT'S NAME PRECIOUS?? ";
 });
 
+session.on("username", function(username) {
+  console.log("Got username", username);
+});
+
 session.trigger(/^(\d+)H (\d+)M (\d+)V > $/, function(line, match) {
   session.emit("prompt", { hp: match[1], mp: match[2], mv: match[3] });
 });
@@ -42,7 +46,7 @@ session.trigger(/^\x1B\[0;36m([^\[][^\r]+)\x1B\[0m$/m, function(line, match) {
 
 let path = session.path("n s e w");
 
-session.on("room", function() {
+session.alias("step", function() {
   path.step();
 });
 
