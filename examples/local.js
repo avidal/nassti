@@ -3,8 +3,14 @@
 let session = require("..").session();
 
 session.configure({
-  host: "localhost",
-  port: 4000
+  host: "game.wotmud.org",
+  port: 2224
+});
+
+session.use(require("../contrib/wotmud/tick-timer")());
+
+session.on("tick", function() {
+  console.warn("TICK TOCK GOES THE CLOCK");
 });
 
 session.trigger(/^By what name do you wish to be known\?/, function() {
@@ -42,6 +48,7 @@ session.trigger(/^\x1B\[0;36m([^\[][^\r]+)\x1B\[0m$/m, function(line, match) {
   }, { once: true });
 });
 
+/*
 let nodir = [
   /Alas, you cannot go that way...$/m,
   /You can't ride in there.$/m,
@@ -54,5 +61,6 @@ let nodir = [
   /You would need a boat to go there.$/m,
   /The (\w+) seems to be closed.$/m
 ];
+*/
 
 module.exports = session;

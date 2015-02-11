@@ -95,14 +95,19 @@ module.exports = function(ticklen) {
   return function(session) {
     // Create a timer named tick with a default 70 second interval.
     let ticker = session.timer("tick", ticklen, function() {
+      console.log("Handling tick timer.");
       session.emit("tick");
     });
+
+    // On session connect, start the timer
+    session.on("connect", ticker.start.bind(ticker));
 
     // And register a trigger for each pattern that, when matched, will reset and
     // fire the ticker
     let pattern;
     for(pattern of tickPatterns) {
-      session.trigger(pattern, function() {
+      let pat = new RegExp(pattern.source, "m");
+      session.trigger(pat, function() {
         // Reset the ticker
         ticker.reset();
         // And fire it immediately, since a tick just occurred
