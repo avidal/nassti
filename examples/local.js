@@ -7,7 +7,7 @@ session.configure({
   port: 4000
 });
 
-session.trigger(/^By what name do you wish to be known?/, function() {
+session.trigger(/^By what name do you wish to be known\?/, function() {
   // Read the next line from the client for the character name then emit
   // an event
   session.read(function(input) {
@@ -16,8 +16,6 @@ session.trigger(/^By what name do you wish to be known?/, function() {
       session.send("test\r\n");
     }
   });
-
-  return "WHAT'S NAME PRECIOUS?? ";
 });
 
 session.on("username", function(username) {
@@ -44,12 +42,6 @@ session.trigger(/^\x1B\[0;36m([^\[][^\r]+)\x1B\[0m$/m, function(line, match) {
   }, { once: true });
 });
 
-let path = session.path("n s e w");
-
-session.alias("step", function() {
-  path.step();
-});
-
 let nodir = [
   /Alas, you cannot go that way...$/m,
   /You can't ride in there.$/m,
@@ -62,9 +54,5 @@ let nodir = [
   /You would need a boat to go there.$/m,
   /The (\w+) seems to be closed.$/m
 ];
-
-for(let i = 0; i < nodir.length; i++) {
-  session.trigger(nodir[i], path.unstep.bind(path));
-}
 
 module.exports = session;
